@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // routes
-app.use(require('./routes/index'));
+app.use(require('./routes/bars'));
+app.use(require('./routes/users'));
 
 
 app.listen(4000);
