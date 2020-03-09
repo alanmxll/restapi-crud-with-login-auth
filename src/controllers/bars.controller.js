@@ -16,8 +16,12 @@ const getBars = async (req, res) => {
 };
 
 const sendDateRange = async (req, res) => {
-	const response = await pool.query(`SELECT weight_bar, weighing_date FROM bars WHERE weighing_date BETWEEN '${req.params.initialDate}' AND '${req.params.finalDate} 23:59:59'`);
-	res.status(200).json(response.rows);
+	try {
+		const response = await pool.query(`SELECT weight_bar, weighing_date FROM bars WHERE weighing_date BETWEEN '${req.params.initialDate}' AND '${req.params.finalDate} 23:59:59'`);
+		res.status(200).json(response.rows);
+	} catch (e) {
+		return (e);
+	}
 }
 
 // const getBarById = async (req, res) => {
