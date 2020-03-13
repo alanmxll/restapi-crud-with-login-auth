@@ -34,10 +34,18 @@ const create = (req, res) => {
     res.sendFile(path.join(__dirname + '/files/create_user.html'))
 };
 
-const createUser = async (req, response) => {
-    const hashedPassword = await encrypter(req.body.password)
+const createUser = (req, response) => {
+    const hashedPassword = encrypter(req.body.password)
+    const {
+        username,
+        firstname,
+        lastname,
+        email,
+        registration,
+        role
+    } = req.body;
 
-    pool.query(`INSERT INTO users(name, password) VALUES ('${req.body.username}','${hashedPassword}');`)
+    pool.query(`INSERT INTO users(username, first_name, last_name, email, registration, role, password) VALUES ('${username}', '${firstname}', '${lastname}', '${email}', '${registration}', '${role}', '${hashedPassword}');`)
         .then(response.send("usuario criado"))
 };
 
@@ -62,7 +70,7 @@ const authUser = async (request, response) => {
     var password = request.body.password;
 
     const hashedPassword = await encrypter(password)
-    pool.query(`SELECT name, password FROM users WHERE name='${username}' AND password='${hashedPassword}'`)
+    pool.query(`SELECT * FROM users WHERE username='${username}' AND password='${hashedPassword}'`)
         .then(res => {
             if (res.rowCount > 0) {
                 request.session.loggedin = true;
