@@ -85,7 +85,7 @@ const authUser = async (request, response) => {
                     "authentication": true,
                     "token": userToken
                 });
-                console.log(userToken);
+                console.log(`token: ${userToken}`);
             }
             else {
                 response.send({ "authentication": false });
