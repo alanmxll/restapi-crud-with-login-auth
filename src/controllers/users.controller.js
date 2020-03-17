@@ -65,11 +65,11 @@ const allUsers = (req, response) => {
 };
 
 
-const authUser = async (request, response) => {
+const authUser = (request, response) => {
     var username = request.body.username;
     var password = request.body.password;
 
-    const hashedPassword = await encrypter(password)
+    const hashedPassword = encrypter(password)
     pool.query(`SELECT * FROM users WHERE username='${username}' AND password='${hashedPassword}'`)
         .then(res => {
             if (res.rowCount > 0) {
