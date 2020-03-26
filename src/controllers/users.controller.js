@@ -84,6 +84,8 @@ const authUser = (request, response) => {
                 response.send({
                     "authentication": true,
                     "token": userToken,
+                    "first_name": res.rows[0]["first_name"],
+                    "last_name": res.rows[0]["last_name"],
                     "role": res.rows[0]["role"]
                 });
                 console.log(`token: ${userToken}`);
